@@ -1,0 +1,38 @@
+{
+  "name": "@linearjeph/sdk",
+  "version": "1.0.0",
+  "description": "LINEARJEPH error tracking, performance, heartbeat and dependency reporting SDK (zero dependencies)",
+  "license": "MIT",
+  "author": "LINEARJEPH",
+  "homepage": "https://linearjeph.cc/docs/sdk/node",
+  "keywords": ["error-tracking", "monitoring", "heartbeat", "performance", "linearjeph"],
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.cjs",
+      "default": "./index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.cjs",
+    "index.mjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
