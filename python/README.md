@@ -2,7 +2,7 @@
 
 Error tracking, performance timing, cron heartbeats and dependency reporting for LINEARJEPH maintenance. No runtime dependencies, Python 3.8+.
 
-    pip install linearjeph
+    pip install https://linearjeph.cc/sdk/linearjeph-1.0.0.tar.gz
 
 ```python
 import linearjeph

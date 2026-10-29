@@ -2,7 +2,7 @@
 
 Error tracking, performance timing, cron heartbeats and dependency reporting for LINEARJEPH maintenance. No runtime dependencies, Node 18+, CommonJS + ESM + TypeScript types.
 
-    npm install @linearjeph/sdk
+    npm install https://linearjeph.cc/sdk/linearjeph-sdk-1.0.0.tgz
 
 ```js
 const linearjeph = require("@linearjeph/sdk");
