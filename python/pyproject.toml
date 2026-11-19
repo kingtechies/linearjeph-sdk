@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linearjeph"
+version = "1.2.0"
+description = "Revenue forecasting and growth analytics (Prophecy: MRR/ARR projection, churn, feature impact) plus error tracking, performance, logs and cron monitoring for Python apps. Zero dependencies."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "LINEARJEPH", email = "support@linearjeph.cc" }]
+keywords = ["revenue-forecasting", "mrr", "arr", "saas-metrics", "churn", "cohort-analysis", "product-analytics", "growth-analytics", "feature-analytics", "forecasting", "error-tracking", "apm", "monitoring", "django", "flask", "fastapi", "prophecy", "linearjeph"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Framework :: Django",
+  "Framework :: Flask",
+  "Framework :: FastAPI",
+  "Topic :: Office/Business :: Financial",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: System :: Logging",
+  "Topic :: System :: Monitoring",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://linearjeph.cc/prophecy"
+Documentation = "https://linearjeph.cc/docs/sdk/python"
+"Prophecy guide" = "https://linearjeph.cc/docs/sdk/prophecy"
+Source = "https://github.com/kingtechies/linearjeph-sdk/tree/main/python"
+Changelog = "https://github.com/kingtechies/linearjeph-sdk/blob/main/python/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+linearjeph = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

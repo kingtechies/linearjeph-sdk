@@ -1,0 +1,49 @@
+{
+    "name": "linearjeph/sdk",
+    "description": "Revenue forecasting and growth analytics for PHP and Laravel apps (LINEARJEPH Prophecy): MRR/ARR projection, churn, feature impact, codebase scan and history import. Zero dependencies.",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.2.0",
+    "keywords": [
+        "revenue-forecasting",
+        "mrr",
+        "arr",
+        "saas-metrics",
+        "churn",
+        "product-analytics",
+        "growth-analytics",
+        "forecasting",
+        "laravel",
+        "psr-15",
+        "prophecy",
+        "linearjeph"
+    ],
+    "homepage": "https://linearjeph.cc/prophecy",
+    "require": {
+        "php": ">=8.1"
+    },
+    "suggest": {
+        "ext-curl": "Faster HTTP transport (stream contexts are used otherwise)",
+        "ext-zlib": "Gzip request bodies"
+    },
+    "autoload": {
+        "psr-4": {
+            "Linearjeph\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/prophecy"
+    ],
+    "authors": [
+        {
+            "name": "LINEARJEPH",
+            "email": "support@linearjeph.cc",
+            "homepage": "https://linearjeph.cc"
+        }
+    ],
+    "support": {
+        "email": "support@linearjeph.cc",
+        "docs": "https://linearjeph.cc/docs/sdk/prophecy",
+        "source": "https://github.com/kingtechies/linearjeph-sdk/tree/main/php"
+    }
+}
