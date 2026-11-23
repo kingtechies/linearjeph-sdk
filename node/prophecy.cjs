@@ -6,7 +6,7 @@
 const crypto = require("node:crypto");
 const zlib = require("node:zlib");
 
-const SDK_VERSION = "1.2.0";
+const SDK_VERSION = "1.3.0";
 const DEFAULT_ENDPOINT = "https://linearjeph.cc";
 const P_EVENTS = "/ingest/v1/prophecy/events";
 const P_IDENTIFY = "/ingest/v1/prophecy/identify";

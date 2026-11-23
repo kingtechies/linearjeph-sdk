@@ -45,7 +45,7 @@ const done = async (s) => { await prophecy.close(); s.srv.close(); };
 
 test("exported from the main package and the subpath", () => {
   assert.strictEqual(lj.prophecy, prophecy);
-  assert.equal(lj.SDK_VERSION, "1.2.0");
+  assert.equal(lj.SDK_VERSION, "1.3.0");
   for (const f of ["init", "track", "feature", "signup", "payment", "subscription", "churn", "identify", "middleware", "scan", "sendManifest", "importHistory", "report", "refresh", "live", "embedUrl", "flush", "close"]) assert.equal(typeof prophecy[f], "function", f);
 });
 

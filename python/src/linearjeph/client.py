@@ -25,7 +25,7 @@ __all__ = ["init", "close", "flush", "capture_exception", "capture_message", "ca
            "transaction", "heartbeat", "monitor", "report_packages", "set_tag", "set_user", "scrub",
            "serialize_exception", "Options", "SDK_VERSION", "DEFAULT_ENDPOINT"]
 
-SDK_VERSION = "1.2.0"
+SDK_VERSION = "1.3.0"
 DEFAULT_ENDPOINT = "https://linearjeph.cc"
 EVENTS_PATH = "/ingest/v1/events"
 HEARTBEAT_PATH = "/ingest/v1/heartbeat"

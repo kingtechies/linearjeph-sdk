@@ -19,7 +19,7 @@ class ClientTest < Minitest::Test
     assert_equal Digest::SHA256.hexdigest("user-1"), e["uid"]
     assert_equal "custom", e["kind"]
     assert_match(/\A\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z\z/, e["ts"])
-    assert_match(%r{\Alinearjeph-prophecy-ruby/1\.2\.0}, reqs[0].headers["user-agent"])
+    assert_match(%r{\Alinearjeph-prophecy-ruby/1\.3\.0}, reqs[0].headers["user-agent"])
   end
 
   def test_background_thread_sends_at_batch_size_without_flush

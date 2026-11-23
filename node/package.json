@@ -1,7 +1,7 @@
 {
   "name": "@linearjeph/sdk",
-  "version": "1.2.0",
-  "description": "Revenue forecasting and growth analytics (Prophecy: MRR/ARR projection, churn, feature impact) plus error tracking, performance, logs and cron monitoring for Node.js. Zero dependencies.",
+  "version": "1.3.0",
+  "description": "Revenue forecasting and growth analytics (Prophecy), error tracking and monitoring, plus an API client and the lj command line for LINEARJEPH Fix, Shield, Ops, Models, Agents and Comply. Zero dependencies.",
   "keywords": [
     "revenue-forecasting",
     "mrr",
@@ -19,7 +19,16 @@
     "express",
     "nextjs",
     "prophecy",
-    "linearjeph"
+    "linearjeph",
+    "lj",
+    "cli",
+    "api-client",
+    "security-scan",
+    "ci",
+    "devsecops",
+    "code-fix",
+    "compliance",
+    "ai-agents"
   ],
   "homepage": "https://linearjeph.cc/prophecy",
   "bugs": {
@@ -53,10 +62,17 @@
       "require": "./prophecy.cjs",
       "default": "./prophecy.cjs"
     },
+    "./products": {
+      "types": "./products.d.ts",
+      "import": "./products.mjs",
+      "require": "./products.cjs",
+      "default": "./products.cjs"
+    },
     "./package.json": "./package.json"
   },
   "bin": {
-    "linearjeph": "./bin/linearjeph.cjs"
+    "linearjeph": "./bin/linearjeph.cjs",
+    "lj": "./bin/lj.cjs"
   },
   "files": [
     "index.cjs",
@@ -65,11 +81,15 @@
     "prophecy-scan.cjs",
     "prophecy.mjs",
     "prophecy.d.ts",
-    "bin/linearjeph.cjs",
     "index.mjs",
     "index.d.ts",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "products.cjs",
+    "products.mjs",
+    "products.d.ts",
+    "bin/linearjeph.cjs",
+    "bin/lj.cjs"
   ],
   "sideEffects": false,
   "engines": {

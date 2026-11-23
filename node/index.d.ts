@@ -148,6 +148,8 @@ import * as prophecyApi from "./prophecy";
 export const prophecy: typeof prophecyApi;
 export type { Manifest as ProphecyManifest, ProphecyInitOptions } from "./prophecy";
 
+export { Client, ApiError } from "./products";
+
 declare const sdk: {
   SDK_VERSION: typeof SDK_VERSION; init: typeof init; flush: typeof flush; scrub: typeof scrub; setTag: typeof setTag;
   setUser: typeof setUser; captureException: typeof captureException; captureMessage: typeof captureMessage;
@@ -160,5 +162,6 @@ declare const sdk: {
   currentSpan: typeof currentSpan; injectHeaders: typeof injectHeaders; wrapNext: typeof wrapNext; release: typeof release;
   deploy: typeof deploy; health: HealthApi; scrubPii: typeof scrubPii; pinoStream: typeof pinoStream; winstonTransport: typeof winstonTransport;
   captureConsole: typeof captureConsole; prophecy: typeof prophecyApi;
+  Client: typeof import("./products").Client; ApiError: typeof import("./products").ApiError;
 };
 export default sdk;

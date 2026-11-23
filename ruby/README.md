@@ -54,3 +54,31 @@ Secret-key calls raise `Linearjeph::Prophecy::Error` on failure.
 `scan` without `--send` prints the manifest as JSON. CSV columns: `ts, uid, name, kind, feature, amount, currency, id` (customers: `uid, signup_at, plan, mrr, country, channel`); any other column becomes a prop (event) or trait (customer).
 
 MIT licensed.
+
+## Product API client
+
+`Linearjeph::Client` (alias `LinearJeph::Client`) calls the Fix, Shield, Ops, Models, Agents and Comply APIs with an API key (`ljk_...`, create one in the dashboard). The key and server default to `LJ_API_KEY` and `LJ_BASE_URL` (`https://linearjeph.cc`).
+
+```ruby
+require "linearjeph"
+
+lj = Linearjeph::Client.new # or Client.new(api_key: "...", base_url: "...", org: 12, timeout: 30)
+lj.whoami
+
+job = lj.fix.create_job(source_id: "gh:acme/app", issue: "login crashes on empty email")
+job = lj.fix.wait(job["id"], timeout: 1200) # polls until done, pr_open, failed, rejected or cancelled
+
+scan = lj.shield.wait_vibe_scan(lj.shield.vibe_scan(4)["id"])
+blocking = lj.shield.gate(scan, fail_on: "high") # findings at or above high
+
+lj.ops.incidents("open"); lj.models.endpoint_usage(3); lj.agents.action(5, "run"); lj.comply.recheck
+lj.request("GET", "/api/v1/market/catalog") # any route not wrapped
+
+begin
+  lj.fix.job(999)
+rescue Linearjeph::ApiError => e
+  puts "#{e.status} #{e.code} #{e.message}"
+end
+```
+
+Answers are Hashes with string keys; lists of records are under `"results"`. GET requests retry 429, 5xx and network errors (3 tries); writes are never retried. `fix.job_patch` and `comply.export` return the raw body. The command line (`lj`) ships with the Node and Python SDKs.

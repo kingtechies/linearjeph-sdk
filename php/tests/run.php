@@ -115,7 +115,7 @@ $e = $reqs[0]['body']['events'][0];
 eq('uid hashed sha256', $e['uid'], hash('sha256', 'user-1'));
 eq('default kind', $e['kind'], 'custom');
 check('ts iso8601 ms', (bool) preg_match('~^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$~', $e['ts']), $e['ts']);
-check('user agent', str_starts_with((string) $reqs[0]['user_agent'], 'linearjeph-prophecy-php/1.2.0'));
+check('user agent', str_starts_with((string) $reqs[0]['user_agent'], 'linearjeph-prophecy-php/1.3.0'));
 
 section('auto flush at batch size');
 reset_capture();
@@ -452,6 +452,8 @@ $rm = static function (string $d) use (&$rm): void {
     @rmdir($d);
 };
 $rm($base);
+
+require __DIR__ . '/products_test.php';
 
 echo "\n$passed passed, $failed failed\n";
 exit($failed === 0 ? 0 : 1);

@@ -25,7 +25,7 @@ __all__ = ["init", "track", "feature", "signup", "payment", "subscription", "chu
            "import_history", "report", "refresh", "live", "embed_url", "flush", "close", "normalize_path", "ProphecyError",
            "SDK_VERSION"]
 
-SDK_VERSION = "1.2.0"
+SDK_VERSION = "1.3.0"
 DEFAULT_ENDPOINT = "https://linearjeph.cc"
 P_EVENTS = "/ingest/v1/prophecy/events"
 P_IDENTIFY = "/ingest/v1/prophecy/identify"

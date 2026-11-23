@@ -47,3 +47,34 @@ CLI (keys from `LINEARJEPH_INGEST_KEY`, `LINEARJEPH_SECRET_KEY`, `LINEARJEPH_END
 
     go run github.com/kingtechies/linearjeph-sdk/go/prophecy/cmd/prophecy scan . --send
     go run github.com/kingtechies/linearjeph-sdk/go/prophecy/cmd/prophecy import events history.csv
+
+## Product API client
+
+Package `github.com/kingtechies/linearjeph-sdk/go/products` calls the Fix, Shield, Ops, Models, Agents and Comply APIs with an API key (`ljk_...`, create one in the dashboard). Standard library only. The key and server default to `LJ_API_KEY` and `LJ_BASE_URL` (`https://linearjeph.cc`).
+
+```go
+import "github.com/kingtechies/linearjeph-sdk/go/products"
+
+c, err := products.New(products.Options{}) // or Options{APIKey: ..., Org: "12", Timeout: 30 * time.Second}
+who, _ := c.Whoami(ctx)
+
+job, _ := c.Fix.CreateJob(ctx, products.JSON{"source_id": "gh:acme/app", "issue": "login crashes on empty email"})
+job, err = c.Fix.Wait(ctx, products.Int(job, "id"), 20*time.Minute) // polls until done, pr_open, failed, rejected or cancelled
+
+started, _ := c.Shield.VibeScan(ctx, 4)
+scan, _ := c.Shield.WaitVibeScan(ctx, products.Int(started, "id"), 10*time.Minute)
+blocking, _ := c.Shield.Gate(scan, "high") // findings at or above high
+
+c.Ops.Incidents(ctx, "open"); c.Models.EndpointUsage(ctx, 3); c.Agents.Action(ctx, 5, "run", nil); c.Comply.Recheck(ctx)
+c.Request(ctx, "GET", "/api/v1/market/catalog", nil, nil) // any route not wrapped
+```
+
+Every answer is a `products.JSON` (`map[string]any`); lists are under `"results"` (`products.Results`). Non-2xx answers return `*products.ApiError` (`Status`, `Code`, `Message`). GET requests retry 429 and 5xx up to 3 tries; writes are never retried. `Fix.JobPatch` and `Comply.Export` return raw bytes.
+
+A small CLI for CI (the full `lj` ships with the Node and Python SDKs):
+
+    go run github.com/kingtechies/linearjeph-sdk/go/cmd/lj@v1.3.0 shield gate --project 4 --fail-on high
+    lj fix run --project 2 --issue "login crashes" --wait
+    lj whoami --json
+
+Key from `--key`, then `LJ_API_KEY`, then `~/.config/linearjeph/credentials`. Exit codes: 0 ok, 1 gate or job failed, 2 usage or auth error.

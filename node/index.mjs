@@ -6,6 +6,6 @@ export const {
   heartbeat, monitor, reportPackages, packagesFromLock,
   incr, gauge, histogram, time, startTimer, span, startSpan, currentSpan, injectHeaders, parseTraceparent, log, logs, captureConsole,
   pinoStream, winstonTransport, checkin, release, deploy, health, wrapNext, scrubPii, flushMetrics, droppedMetricSeries,
-  requestHandler, errorHandler, timing, expressErrorHandler, serializeError, prophecy,
+  Client, ApiError, requestHandler, errorHandler, timing, expressErrorHandler, serializeError, prophecy,
 } = lj;
 export default lj;

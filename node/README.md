@@ -67,3 +67,51 @@ const { report } = await prophecy.report();          // secret key, server side 
 ```
 
 CLI: `npx @linearjeph/sdk prophecy scan [dir] [--send]`, `npx @linearjeph/sdk prophecy import events history.csv`. User ids are SHA-256 hashed by default.
+
+## Product SDKs and the lj command
+
+The same package ships an API client and a command line for the LINEARJEPH products Fix, Shield, Ops, Models, Agents and Comply. Create an API key in the dashboard (API keys); it only works for products your organization has.
+
+```js
+const { Client } = require("@linearjeph/sdk");        // or: import { Client } from "@linearjeph/sdk/products"
+const lj = new Client({ apiKey: process.env.LJ_API_KEY });   // baseUrl defaults to https://linearjeph.cc (LJ_BASE_URL)
+
+const job = await lj.fix.run(12, { issue: "Checkout returns 500 when the cart is empty" });
+const done = await lj.fix.wait(job.id, { timeout: 900 });     // done | accepted | failed | rejected | cancelled | pr_open
+
+const queued = await lj.shield.vibe.scan(12);
+const scan = await lj.shield.vibe.wait(queued.id);
+const bad = lj.shield.gate(scan, "high");                      // findings at or above "high"
+
+await lj.request("GET", "opsagent/summary");                   // any route not wrapped
+```
+
+Namespaces: `fix`, `shield`, `ops`, `models`, `agents`, `comply`, plus `whoami()` and `request(method, path, body, query)`. Errors are `ApiError` with `status`, `code` and `message`. GET requests retry on 429 and 5xx (3 tries, honouring `Retry-After`). The method to route table is `ROUTES` in `products.cjs`.
+
+```
+lj login                              # saves the key to ~/.config/linearjeph/credentials (mode 0600, XDG_CONFIG_HOME respected)
+lj whoami
+lj fix run --project 12 --issue "Checkout returns 500" --wait
+lj shield gate --project 12 --fail-on high
+lj ops status | lj ops incidents | lj ops backup 3 --wait | lj ops drill 3 --wait
+lj models list | lj agents run 7 --wait | lj comply export --out audit.zip
+lj api GET fixops/jobs
+```
+
+`lj --help` and `lj <product> --help` list every command. Add `--json` for raw JSON. The key comes from `--key`, then `LJ_API_KEY`, then the saved credentials, and is never printed. Exit codes: 0 ok, 1 gate or job or scan failed, 2 usage, auth, API or network error. `linearjeph <product> ...` is the same command.
+
+CI (GitHub Actions), failing the build on high or critical findings:
+
+```yaml
+jobs:
+  shield:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npx -y @linearjeph/sdk@1.3.0 shield gate --project 12 --fail-on high
+        env:
+          LJ_API_KEY: ${{ secrets.LJ_API_KEY }}
+```
+
+With `npx` the command is `linearjeph shield gate ...` (the package's first binary); after `npm i -g @linearjeph/sdk` use `lj`.

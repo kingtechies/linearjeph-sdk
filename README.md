@@ -16,13 +16,28 @@ Zero runtime dependencies. MIT licensed.
 | Language | Package | Install | Folder |
 |---|---|---|---|
 | Python 3.8+ | [`linearjeph` on PyPI](https://pypi.org/project/linearjeph/) | `pip install linearjeph` | [`python/`](python) |
-| Node.js 18+ | `@linearjeph/sdk` | `npm install https://linearjeph.cc/sdk/linearjeph-sdk-1.2.0.tgz` | [`node/`](node) |
-| Go 1.21+ | `github.com/kingtechies/linearjeph-sdk/go` | `go get github.com/kingtechies/linearjeph-sdk/go@v1.2.0` | [`go/`](go) |
-| PHP 8.1+ / Laravel | `linearjeph/sdk` | `composer config repositories.linearjeph vcs https://github.com/kingtechies/linearjeph-php && composer require linearjeph/sdk:^1.2` | [`php/`](php) |
-| Ruby 3.0+ / Rails | `linearjeph` gem | `curl -LO https://linearjeph.cc/sdk/linearjeph-1.2.0.gem && gem install ./linearjeph-1.2.0.gem` | [`ruby/`](ruby) |
+| Node.js 18+ | `@linearjeph/sdk` | `npm install https://linearjeph.cc/sdk/linearjeph-sdk-1.3.0.tgz` | [`node/`](node) |
+| Go 1.21+ | `github.com/kingtechies/linearjeph-sdk/go` | `go get github.com/kingtechies/linearjeph-sdk/go@v1.3.0` | [`go/`](go) |
+| PHP 8.1+ / Laravel | `linearjeph/sdk` | `composer config repositories.linearjeph vcs https://github.com/kingtechies/linearjeph-php && composer require linearjeph/sdk:^1.3` | [`php/`](php) |
+| Ruby 3.0+ / Rails | `linearjeph` gem | `curl -LO https://linearjeph.cc/sdk/linearjeph-1.3.0.gem && gem install ./linearjeph-1.3.0.gem` | [`ruby/`](ruby) |
 | Browser | `prophecy.js` | `<script src="https://linearjeph.cc/sdk/prophecy.js"></script>` | — |
 
 Every package can also be downloaded from https://linearjeph.cc/sdk/ (checksums: https://linearjeph.cc/sdk/SHA256SUMS).
+
+## Product SDKs and the `lj` command
+
+Use Fix, Shield, Ops, Models, Agents and Comply from your terminal and CI. Create a key in Dashboard > API keys, then:
+
+```bash
+pip install -U linearjeph        # or: npm install -g https://linearjeph.cc/sdk/linearjeph-sdk-1.3.0.tgz
+lj login
+lj shield gate --project 12 --fail-on high       # exit 1 on any high or critical finding
+lj fix run --project 12 --issue "Checkout returns 500" --wait
+lj ops status | lj models list | lj agents run 7 | lj comply export --out evidence.zip
+```
+
+Go (`products` package and `cmd/lj`), PHP (`LinearJeph\Products\Client`) and Ruby (`Linearjeph::Client`) ship the same client.
+Guide: https://linearjeph.cc/docs/sdk/products
 
 ## Prophecy in 30 seconds
 

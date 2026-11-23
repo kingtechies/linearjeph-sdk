@@ -8,7 +8,7 @@ const fs = require("node:fs");
 const zlib = require("node:zlib");
 const path = require("node:path");
 
-const SDK_VERSION = "1.2.0";
+const SDK_VERSION = "1.3.0";
 const DEFAULT_ENDPOINT = "https://linearjeph.cc";
 const EVENTS = "/ingest/v1/events";
 const HEARTBEAT = "/ingest/v1/heartbeat";
@@ -352,4 +352,5 @@ module.exports = {
   heartbeat, reportPackages, packagesFromLock, ...T.api,
   requestHandler, errorHandler, timing: requestHandler, expressErrorHandler: errorHandler,
   serializeError, prophecy: require("./prophecy.cjs"), _state: st,
+  get Client() { return require("./products.cjs").Client; }, get ApiError() { return require("./products.cjs").ApiError; },
 };

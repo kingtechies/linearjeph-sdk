@@ -54,4 +54,29 @@ Secret-key calls throw `Linearjeph\Prophecy\ProphecyException` on failure.
 
 `scan` without `--send` prints the manifest as JSON. CSV columns: `ts, uid, name, kind, feature, amount, currency, id` (customers: `uid, signup_at, plan, mrr, country, channel`); any other column becomes a prop (event) or trait (customer).
 
+## Product API client
+
+`LinearJeph\Products\Client` calls the Fix, Shield, Ops, Models, Agents and Comply APIs with an API key (`ljk_...`, create one in the dashboard). The key and server default to `LJ_API_KEY` and `LJ_BASE_URL` (`https://linearjeph.cc`).
+
+```php
+use LinearJeph\Products\Client;
+use LinearJeph\Products\ApiError;
+
+$lj = new Client(); // or new Client(apiKey: '...', baseUrl: '...', org: '12', timeout: 30)
+$lj->whoami();
+
+$job = $lj->fix->createJob(['source_id' => 'gh:acme/app', 'issue' => 'login crashes on empty email']);
+$job = $lj->fix->wait($job['id'], 1200); // polls until done, pr_open, failed, rejected or cancelled
+
+$scan = $lj->shield->waitVibeScan($lj->shield->vibeScan(4)['id']);
+$blocking = $lj->shield->gate($scan, 'high'); // findings at or above high
+
+$lj->ops->incidents('open'); $lj->models->endpointUsage(3); $lj->agents->action(5, 'run'); $lj->comply->recheck();
+$lj->request('GET', '/api/v1/market/catalog'); // any route not wrapped
+
+try { $lj->fix->job(999); } catch (ApiError $e) { echo $e->status(), ' ', $e->errorCode(), ' ', $e->getMessage(); }
+```
+
+Answers are arrays; lists of records are under `results`. GET requests retry 429, 5xx and network errors (3 tries); writes are never retried. `fix->jobPatch()` and `comply->export()` return the raw body. The command line (`lj`) ships with the Node and Python SDKs.
+
 Tests: `php tests/run.php`. MIT licensed.

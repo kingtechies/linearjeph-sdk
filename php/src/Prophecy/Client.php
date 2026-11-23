@@ -10,7 +10,7 @@ namespace Linearjeph\Prophecy;
  */
 final class Client
 {
-    public const VERSION = '1.2.0';
+    public const VERSION = '1.3.0';
     public const DEFAULT_ENDPOINT = 'https://linearjeph.cc';
     private const KINDS = ['signup', 'login', 'active', 'feature', 'payment', 'refund', 'subscription', 'churn', 'pageview', 'request', 'error', 'custom'];
 

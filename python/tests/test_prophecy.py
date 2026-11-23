@@ -77,7 +77,7 @@ def events():
 
 
 def test_exposed_on_package():
-    assert linearjeph.prophecy is prophecy and prophecy.SDK_VERSION == "1.2.0"
+    assert linearjeph.prophecy is prophecy and prophecy.SDK_VERSION == "1.3.0"
     for f in ("init", "track", "feature", "signup", "payment", "subscription", "churn", "identify", "scan", "send_manifest",
               "import_history", "report", "refresh", "live", "embed_url", "flush", "close"):
         assert callable(getattr(prophecy, f)), f

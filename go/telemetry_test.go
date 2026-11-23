@@ -551,7 +551,7 @@ func TestHealthHandlerTokenAndCodes(t *testing.T) {
 }
 
 func TestVersionConstant(t *testing.T) {
-	if Version != "1.2.0" {
+	if Version != "1.3.0" {
 		t.Fatal(Version)
 	}
 }

@@ -295,4 +295,4 @@ test("health ok/degraded, token and http handler", async () => {
   h.unregister("a"); h.unregister("b");
 });
 
-test("version", () => assert.equal(lj.SDK_VERSION, "1.2.0"));
+test("version", () => assert.equal(lj.SDK_VERSION, "1.3.0"));

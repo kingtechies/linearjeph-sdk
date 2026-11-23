@@ -377,4 +377,4 @@ def test_django_middleware_sends_span_with_traceparent(server):
 
 
 def test_version():
-    assert linearjeph.__version__ == "1.2.0"
+    assert linearjeph.__version__ == "1.3.0"

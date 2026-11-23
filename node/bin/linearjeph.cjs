@@ -2,6 +2,7 @@
 "use strict";
 /**
  * linearjeph prophecy scan [dir] [--send] [--json] [--out file]
+ * linearjeph <product> ... is the same as `lj <product> ...` (see lj.cjs).
  * linearjeph prophecy import <events|customers> <file.csv|file.json>
  * Keys: LINEARJEPH_INGEST_KEY (scan --send), LINEARJEPH_SECRET_KEY (import). Endpoint: LINEARJEPH_ENDPOINT.
  */
@@ -12,6 +13,7 @@ const prophecy = require("../prophecy.cjs");
 const USAGE = `usage:
   linearjeph prophecy scan [dir] [--send] [--json] [--out file]
   linearjeph prophecy import <events|customers> <file.csv|file.json>
+  linearjeph <fix|shield|ops|models|agents|comply|api|login|logout|whoami> ...   same as the lj command (lj --help)
 env: LINEARJEPH_INGEST_KEY (scan --send), LINEARJEPH_SECRET_KEY (import), LINEARJEPH_ENDPOINT (default https://linearjeph.cc)`;
 
 /** RFC 4180 CSV -> array of objects keyed by the header row. */
@@ -37,7 +39,10 @@ function loadRows(file, kind) {
   return Array.isArray(j) ? j : j[kind] || j.rows || [];
 }
 
+const LJ_COMMANDS = new Set(["fix", "shield", "ops", "models", "agents", "comply", "api", "login", "logout", "whoami"]);
+
 async function main(argv) {
+  if (argv.length && !argv[0].startsWith("-") && LJ_COMMANDS.has(argv[0])) return require("./lj.cjs").main(argv);
   const args = argv.filter((a) => !a.startsWith("--")), flag = (n) => argv.includes("--" + n);
   if (args[0] !== "prophecy" || !["scan", "import"].includes(args[1])) { console.error(USAGE); return 2; }
   prophecy.init({ debug: false, handlers: false });
